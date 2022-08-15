@@ -16,15 +16,6 @@ type entryer interface {
 	GetSshConfig(c *PConfig) string
 }
 
-func parseEntry(e parseable, c *PConfig) int {
-	ii := e.Parse(c)
-	if ii < 0 {
-		log.Printf("%T: %s", e, c.lines[c.i])
-		return c.i
-	}
-	return ii
-}
-
 func ParsePConfigFromFile(path string) *PConfig {
 	content, err := ioutil.ReadFile(path)
 	if err != nil {
