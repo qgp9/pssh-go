@@ -1,8 +1,6 @@
 package parser
 
 import (
-	"bufio"
-	"io/ioutil"
 	"log"
 	"regexp"
 	"strings"
@@ -16,49 +14,6 @@ type PConfig struct {
 	EntryList []entryer
 	variables map[string]*entryVariable
 	nodes     map[string]*entryNode
-}
-
-func (p *PConfig) LoadConfigFromFile(path string) {
-	content, err := ioutil.ReadFile(path)
-	if err != nil {
-		log.Fatal(err)
-	}
-	p.LoadConfigFromString(string(content))
-
-}
-
-func (p *PConfig) LoadConfigFromString(str string) {
-	scanner := bufio.NewScanner(strings.NewReader(str))
-	var lines []string
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	p.Parse(lines)
-}
-
-func (p *PConfig) Parse(lines []string) {
-	p.lines = lines
-	parsers := []parseable{
-		&parserEmpty{},    // ''
-		&parserOption{},   // begins with -
-		&parserNode{},     // begins with |
-		&parserComment{},  // begins with #
-		&parserVariable{}, // begins with $
-		&parserIgnore{},   // begins with +
-		&parserGroup{},    // begins with @@
-		&parserUnknown{},  // all
-	}
-	for p.i = 0; p.i < len(lines); p.i++ {
-		// p.i may be going to modified by each parser.
-		line := lines[p.i]
-		l := strings.TrimSpace(line)
-		for _, parser := range parsers {
-			if parser.Selector(line, l) {
-				parser.Parse(p)
-				break
-			}
-		}
-	}
 }
 
 func (p *PConfig) WriteSshConfig() {
