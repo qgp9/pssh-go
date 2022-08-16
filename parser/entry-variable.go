@@ -6,7 +6,13 @@ import (
 	"strings"
 )
 
-type parserVariable parserBase
+type parserVariable struct {
+	parser[*entryVariable]
+}
+
+func NewParserVariable() *parserVariable {
+	return NewParserWithSelector[*parserVariable](`^\s*\$`)
+}
 
 type entryVariable struct {
 	entryBase
@@ -15,18 +21,13 @@ type entryVariable struct {
 	comment string
 }
 
-func (e *parserVariable) Selector(line string, trimed string) bool {
-	return strings.HasPrefix(trimed, "$")
-}
-
 func (e *parserVariable) Parse(c *PConfig) int {
-	log.Println("entryVariable: ", c.lines[c.i])
+	//log.Println("entryVariable: ", c.lines[c.i])
 	var entry = entryVariable{}
 	rSingle, _ := regexp.Compile(`^\$([\w]+)\s*=\s*([^#]+)(.*)$`)
 	rBlock, _ := regexp.Compile(`^\$([\w]+)\s*=\s*\{\s*(#.*)?$`)
 	rBlockEnd, _ := regexp.Compile(`^\s*\}\s*(#.*)?$`)
 	line := c.lines[c.i]
-	//rBlock.MatchString(line)
 	res := rBlock.FindStringSubmatch(line)
 	if len(res) > 0 {
 		log.Println("DEBUG===: ", line)
@@ -40,7 +41,7 @@ func (e *parserVariable) Parse(c *PConfig) int {
 			if len(res) > 0 {
 				entry.value = strings.Join(values, "\n")
 				log.Println(e)
-				break // FIXME return number of processed lines
+				break
 			} else {
 				values = append(values, line) // FIXME Trim? maybe no
 			}

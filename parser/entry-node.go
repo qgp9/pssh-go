@@ -7,10 +7,12 @@ import (
 	"github.com/qgp9/pssh-go/utils"
 )
 
-type parserNode parserBase
+type parserNode struct {
+	parser[*entryNode]
+}
 
-func (e *parserNode) Selector(line string, trimed string) bool {
-	return strings.HasPrefix(trimed, "|")
+func NewParserNode() *parserNode {
+	return NewParserWithSelector[*parserNode](`^\s*\|`)
 }
 
 var reNode = regexp.MustCompile(`^|\s*\s*|\s*|\s+`)

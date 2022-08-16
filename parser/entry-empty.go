@@ -1,14 +1,7 @@
 package parser
 
-type parserEmpty parserBase
-
-func (e *parserEmpty) Selector(line string, trimed string) bool {
-	return trimed == ""
-}
-
-func (e *parserEmpty) Parse(c *PConfig) int {
-	c.addEntry(&entryEmpty{})
-	return 1
+type parserEmpty struct {
+	parser[*entryEmpty]
 }
 
 type entryEmpty struct {
@@ -17,4 +10,8 @@ type entryEmpty struct {
 
 func (e *entryEmpty) GetSshConfig(c *PConfig) string {
 	return ""
+}
+
+func NewParserEmpty() *parserEmpty {
+	return NewParserWithSelector[*parserEmpty](`^\s*$`)
 }

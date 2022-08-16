@@ -48,6 +48,17 @@ func (p *PConfig) addEntry(e entryer) {
 	p.EntryList = append(p.EntryList, e)
 }
 
+func (p *PConfig) addVariable(e *entryVariable) {
+	_, ok := p.variables[e.name]
+	if ok == true {
+		log.Fatal("Variable " + e.name + " is duplicated!") // Better error handling
+	} else {
+		p.variables[e.name] = e
+	}
+}
+
+// TODO: func (p *PConfig) addNode(e *entryNode)
+
 func (p *PConfig) currentLine() string {
 	return p.lines[p.i]
 }
@@ -55,5 +66,6 @@ func (p *PConfig) currentLine() string {
 func NewPConfig() *PConfig {
 	p := new(PConfig)
 	p.variables = make(map[string]*entryVariable)
+
 	return p
 }

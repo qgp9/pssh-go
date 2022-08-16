@@ -1,22 +1,7 @@
 package parser
 
-import (
-	"log"
-	"strings"
-)
-
-type parserIgnore parserBase
-
-func (e *parserIgnore) Selector(line string, trimed string) bool {
-	return strings.HasPrefix(trimed, "+")
-}
-
-func (e *parserIgnore) Parse(c *PConfig) int {
-	log.Println("entryIgnore: ", c.currentLine())
-	var entry = entryIgnore{}
-	entry.value = c.lines[c.i] //FIXME: remove @@
-	c.addEntry(&entry)
-	return 1
+type parserIgnore struct {
+	parser[*entryIgnore]
 }
 
 type entryIgnore struct {
@@ -25,4 +10,8 @@ type entryIgnore struct {
 
 func (e *entryIgnore) GetSshConfig(c *PConfig) string {
 	return ""
+}
+
+func NewParserIgnore() *parserIgnore {
+	return NewParserWithSelector[*parserIgnore](`^\s*\+`)
 }

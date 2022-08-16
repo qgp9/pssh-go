@@ -8,12 +8,14 @@ import (
 )
 
 type parseable interface {
-	Selector(string, string) bool
+	Selector(string) bool
 	Parse(c *PConfig) int
+	setRegexp(string) error
 }
 
 type entryer interface {
 	GetSshConfig(c *PConfig) string
+	SetValue(string)
 }
 
 func ParsePConfigFromFile(path string) *PConfig {
@@ -38,21 +40,21 @@ func ParsePConfigStringSlice(lines []string) *PConfig {
 	p := NewPConfig()
 	p.lines = lines
 	parsers := []parseable{
-		&parserEmpty{},    // ''
-		&parserOption{},   // begins with -
-		&parserNode{},     // begins with |
-		&parserComment{},  // begins with #
-		&parserVariable{}, // begins with $
-		&parserIgnore{},   // begins with +
-		&parserGroup{},    // begins with @@
-		&parserUnknown{},  // all
+		NewParserEmpty(),
+		NewParserEmpty(),    // ''
+		NewParserOption(),   // begins with -
+		NewParserNode(),     // begins with |
+		NewParserComment(),  // begins with #
+		NewParserVariable(), // begins with $
+		NewParserIgnore(),   // begins with +
+		NewParserGroup(),    // begins with @@
+		NewParserUnknown(),  // all
 	}
 	for p.i = 0; p.i < len(lines); p.i++ {
 		// p.i may be going to modified by each parser.
 		line := lines[p.i]
-		l := strings.TrimSpace(line)
 		for _, parser := range parsers {
-			if parser.Selector(line, l) {
+			if parser.Selector(line) == true {
 				parser.Parse(p)
 				break
 			}

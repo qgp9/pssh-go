@@ -1,26 +1,17 @@
 package parser
 
-import (
-	"strings"
-)
-
-type parserComment parserBase
-
-func (e *parserComment) Selector(line string, trimed string) bool {
-	return strings.HasPrefix(trimed, "#")
+// interface: parseable
+type parserComment struct {
+	parser[*entryComment]
 }
 
-func (e *parserComment) Parse(c *PConfig) int {
-	var entry = entryComment{}
-	entry.value = c.lines[c.i]
-	c.addEntry(&entry)
-	return 1
-}
-
+// interface: entryer
 type entryComment struct {
 	entryBase
 }
 
-func (e *entryComment) GetSshConfig(c *PConfig) string {
-	return e.value
+func NewParserComment() *parserComment {
+	p := new(parserComment)
+	p.setRegexp(`^\s*#`)
+	return p
 }
