@@ -75,5 +75,5 @@ func (e *entryNode) GetSshConfig(c *PConfig) string {
 	addEntry(e.Key, "IdentityFile ")
 	addEntry(e.Option, "")
 
-	return strings.Join(strs, "\n")
+	return strings.Join(strs, "\n") + "\n"
 }

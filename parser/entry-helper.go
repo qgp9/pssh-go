@@ -46,7 +46,7 @@ type entryHelper struct {
 }
 
 func (e entryHelper) GetSshConfig(c *PConfig) string {
-	return e.value
+	return e.value + "\n"
 }
 
 func (e *entryHelper) SetValue(str string) {

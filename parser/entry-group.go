@@ -9,7 +9,7 @@ type entryGroup struct {
 }
 
 func (e *entryGroup) GetSshConfig(c *PConfig) string {
-	return "# " + e.value
+	return "# " + e.value + "\n"
 }
 
 func NewParserGroup() *parserGroup {

@@ -21,7 +21,7 @@ func (p *PConfig) WriteSshConfig() {
 	for _, v := range p.EntryList {
 		sshConfigList = append(sshConfigList, v.GetSshConfig(p))
 	}
-	err := utils.WriteStringToFile("output.txt", strings.Join(sshConfigList, "\n"))
+	err := utils.WriteStringToFile("output.txt", strings.Join(sshConfigList, ""))
 	if err != nil {
 		log.Fatal(err)
 	}
