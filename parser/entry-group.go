@@ -5,11 +5,12 @@ type parserGroup struct {
 }
 
 type entryGroup struct {
+	entryNode
 	entryHelper
 }
 
 func (e *entryGroup) GetSshConfig(c *PConfig) string {
-	return "# " + e.value + "\n"
+	return "# GROUP: " + e.value + "\n"
 }
 
 func NewParserGroup() *parserGroup {

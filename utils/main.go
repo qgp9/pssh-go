@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"unicode"
 )
 
 func SplitAndTrim(s string, sep string) []string {
@@ -41,4 +42,13 @@ func WriteStringToFile(path string, s string) (err error) {
 	f.Sync()
 
 	return nil
+}
+
+func IsUpper(s string) bool {
+	for _, r := range s {
+		if unicode.IsUpper(r) == false {
+			return false
+		}
+	}
+	return true
 }
