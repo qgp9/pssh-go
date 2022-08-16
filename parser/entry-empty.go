@@ -9,5 +9,5 @@ func (p parserEmpty) getSelectorString() string {
 }
 
 type entryEmpty struct {
-	entryBase
+	entryHelper
 }

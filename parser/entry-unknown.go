@@ -9,5 +9,5 @@ func NewParserUnknown() *parserUnknown {
 }
 
 type entryUnknown struct {
-	entryBase
+	entryHelper
 }

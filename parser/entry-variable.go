@@ -15,7 +15,7 @@ func NewParserVariable() *parserVariable {
 }
 
 type entryVariable struct {
-	entryBase
+	entryHelper
 	name    string
 	comment string
 }

@@ -56,7 +56,7 @@ type entryNode struct {
 	Key      string
 	Option   string
 	Comment  string
-	entryBase
+	entryHelper
 }
 
 func (e *entryNode) GetSshConfig(c *PConfig) string {

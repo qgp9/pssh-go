@@ -7,7 +7,7 @@ type parserComment struct {
 
 // interface: entryable
 type entryComment struct {
-	entryBase
+	entryHelper
 }
 
 func NewParserComment() *parserComment {

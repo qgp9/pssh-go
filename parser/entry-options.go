@@ -25,5 +25,5 @@ func NewParserOption() *parserOption {
 }
 
 type entryOption struct {
-	entryBase
+	entryHelper
 }

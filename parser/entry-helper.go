@@ -40,16 +40,16 @@ func (e *parserHelper[T]) Parse(c *PConfig) int {
 	return 1
 }
 
-type entryBase struct {
+type entryHelper struct {
 	line  int
 	value string
 }
 
-func (e entryBase) GetSshConfig(c *PConfig) string {
+func (e entryHelper) GetSshConfig(c *PConfig) string {
 	return e.value
 }
 
-func (e *entryBase) SetValue(str string) {
+func (e *entryHelper) SetValue(str string) {
 	e.value = str
 }
 

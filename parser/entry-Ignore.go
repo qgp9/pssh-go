@@ -5,7 +5,7 @@ type parserIgnore struct {
 }
 
 type entryIgnore struct {
-	entryBase
+	entryHelper
 }
 
 func (e *entryIgnore) GetSshConfig(c *PConfig) string {
