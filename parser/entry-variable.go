@@ -27,6 +27,7 @@ func (e *parserVariable) Parse(c *PConfig) int {
 	rBlock, _ := regexp.Compile(`^\$([\w]+)\s*=\s*\{\s*(#.*)?$`)
 	rBlockEnd, _ := regexp.Compile(`^\s*\}\s*(#.*)?$`)
 	line := c.lines[c.i]
+	lineStart := c.i
 	res := rBlock.FindStringSubmatch(line)
 	if len(res) > 0 {
 		log.Println("DEBUG===: ", line)
@@ -39,7 +40,7 @@ func (e *parserVariable) Parse(c *PConfig) int {
 			res = rBlockEnd.FindStringSubmatch(line)
 			if len(res) > 0 {
 				entry.value = strings.Join(values, "\n")
-				log.Println(e)
+				entry.pos = [2]int{lineStart, c.i}
 				break
 			} else {
 				values = append(values, line) // FIXME Trim? maybe no
@@ -52,6 +53,7 @@ func (e *parserVariable) Parse(c *PConfig) int {
 		res = rSingle.FindStringSubmatch(line)
 
 		if len(res) > 0 {
+			entry.pos = [2]int{lineStart, lineStart}
 			entry.name = res[1]
 			entry.value = res[2]
 			entry.comment = res[3]
@@ -64,4 +66,8 @@ func (e *parserVariable) Parse(c *PConfig) int {
 		return 1 //FIXME: return number of processed lines
 	}
 	return 0 // FIXME throw error
+}
+
+func (e entryVariable) GetSshConfig(c *PConfig) string {
+	return "# " + strings.Join(c.lines[e.pos[0]:e.pos[1]+1], "\n# ") + "\n"
 }
