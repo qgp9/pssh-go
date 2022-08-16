@@ -1,6 +1,6 @@
 package parser
 
-// for blesed parser* by parserHelper[T entryer]
+// for blesed parser* by parserHelper[T entryable]
 type parseableHelper interface {
 	parseable
 	setRegexp(string) error
@@ -14,7 +14,7 @@ type parseable interface {
 }
 
 // for entry* struct
-type entryer interface {
+type entryable interface {
 	GetSshConfig(c *PConfig) string
 	SetValue(string)
 }

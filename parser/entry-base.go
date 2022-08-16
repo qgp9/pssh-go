@@ -7,7 +7,7 @@ import (
 )
 
 // Helper to implement interface parceable
-type parserHelper[T entryer] struct {
+type parserHelper[T entryable] struct {
 	regstr *regexp.Regexp
 }
 

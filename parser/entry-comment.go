@@ -5,7 +5,7 @@ type parserComment struct {
 	parserHelper[*entryComment]
 }
 
-// interface: entryer
+// interface: entryable
 type entryComment struct {
 	entryBase
 }

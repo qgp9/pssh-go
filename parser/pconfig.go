@@ -11,7 +11,7 @@ import (
 type PConfig struct {
 	lines     []string
 	i         int
-	EntryList []entryer
+	EntryList []entryable
 	variables map[string]*entryVariable
 	nodes     map[string]*entryNode
 }
@@ -44,7 +44,7 @@ func (p *PConfig) applyVariable(str string) string {
 	return ret
 }
 
-func (p *PConfig) addEntry(e entryer) {
+func (p *PConfig) addEntry(e entryable) {
 	p.EntryList = append(p.EntryList, e)
 }
 
