@@ -7,17 +7,6 @@ import (
 	"strings"
 )
 
-type parseable interface {
-	Selector(string) bool
-	Parse(c *PConfig) int
-	setRegexp(string) error
-}
-
-type entryer interface {
-	GetSshConfig(c *PConfig) string
-	SetValue(string)
-}
-
 func ParsePConfigFromFile(path string) *PConfig {
 	content, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -40,8 +29,7 @@ func ParsePConfigStringSlice(lines []string) *PConfig {
 	p := NewPConfig()
 	p.lines = lines
 	parsers := []parseable{
-		NewParserEmpty(),
-		NewParserEmpty(),    // ''
+		NewParser[*parserEmpty](),
 		NewParserOption(),   // begins with -
 		NewParserNode(),     // begins with |
 		NewParserComment(),  // begins with #

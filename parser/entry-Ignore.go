@@ -1,7 +1,7 @@
 package parser
 
 type parserIgnore struct {
-	parser[*entryIgnore]
+	parserHelper[*entryIgnore]
 }
 
 type entryIgnore struct {

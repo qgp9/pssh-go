@@ -1,7 +1,7 @@
 package parser
 
 type parserGroup struct {
-	parser[*entryGroup]
+	parserHelper[*entryGroup]
 }
 
 type entryGroup struct {

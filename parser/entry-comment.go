@@ -2,7 +2,7 @@ package parser
 
 // interface: parseable
 type parserComment struct {
-	parser[*entryComment]
+	parserHelper[*entryComment]
 }
 
 // interface: entryer

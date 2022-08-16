@@ -7,7 +7,7 @@ import (
 )
 
 type parserVariable struct {
-	parser[*entryVariable]
+	parserHelper[*entryVariable]
 }
 
 func NewParserVariable() *parserVariable {
@@ -17,7 +17,6 @@ func NewParserVariable() *parserVariable {
 type entryVariable struct {
 	entryBase
 	name    string
-	value   string
 	comment string
 }
 

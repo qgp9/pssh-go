@@ -3,7 +3,7 @@ package parser
 import "regexp"
 
 type parserOption struct {
-	parser[*entryOption]
+	parserHelper[*entryOption]
 }
 
 var reOptionPrefix = regexp.MustCompile(`^(\s*\|\s*)*-\s*`)

@@ -1,11 +1,11 @@
 package parser
 
 type parserUnknown struct {
-	parser[*entryUnknown]
+	parserHelper[*entryUnknown]
 }
 
 func NewParserUnknown() *parserUnknown {
-	return NewParserWithSelector[*parserUnknown](`.`)
+	return NewParserWithSelector2(new(parserUnknown), `.`)
 }
 
 type entryUnknown struct {

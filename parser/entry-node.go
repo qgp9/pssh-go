@@ -8,7 +8,7 @@ import (
 )
 
 type parserNode struct {
-	parser[*entryNode]
+	parserHelper[*entryNode]
 }
 
 func NewParserNode() *parserNode {
