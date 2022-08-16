@@ -52,3 +52,13 @@ func IsUpper(s string) bool {
 	}
 	return true
 }
+
+func AddToMap[V any](m map[string]V, key string, value V, log func()) bool {
+	_, ok := m[key]
+	if ok == true {
+		log()
+		return false
+	}
+	m[key] = value
+	return true
+}

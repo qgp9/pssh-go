@@ -44,11 +44,13 @@ func (e *parserNode) Parse(c *PConfig) int {
 	entry.pos[0] = c.i
 	if utils.IsUpper(host) == false {
 		c.addEntry(&entry)
+		c.addNode(&entry)
 	} else {
 		entryG := entryGroup{}
 		entryG.entryNode = entry
 		entryG.SetValue(line)
 		c.addEntry(&entryG)
+		c.addGroup(&entryG)
 	}
 
 	return 1

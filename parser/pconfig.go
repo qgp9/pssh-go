@@ -14,6 +14,7 @@ type PConfig struct {
 	EntryList []entryable
 	variables map[string]*entryVariable
 	nodes     map[string]*entryNode
+	groups    map[string]*entryGroup
 }
 
 func (p *PConfig) WriteSshConfig() {
@@ -57,7 +58,20 @@ func (p *PConfig) addVariable(e *entryVariable) {
 	}
 }
 
-// TODO: func (p *PConfig) addNode(e *entryNode)
+func (p *PConfig) addNode(e *entryNode) {
+	_, ok := p.variables[e.Host]
+	if ok == true {
+		log.Fatal("Node " + e.Host + " is duplicated!") // Better error handling
+	} else {
+		p.nodes[e.Host] = e
+	}
+}
+
+func (p *PConfig) addGroup(e *entryGroup) {
+	utils.AddToMap(p.groups, e.Host, e, func() {
+		log.Panic("Group " + e.Host + " is duplicated!") // Better error handling
+	})
+}
 
 func (p *PConfig) currentLine() string {
 	return p.lines[p.i]
@@ -66,6 +80,8 @@ func (p *PConfig) currentLine() string {
 func NewPConfig() *PConfig {
 	p := new(PConfig)
 	p.variables = make(map[string]*entryVariable)
+	p.nodes = make(map[string]*entryNode)
+	p.groups = make(map[string]*entryGroup)
 
 	return p
 }
