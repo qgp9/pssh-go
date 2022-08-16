@@ -41,7 +41,7 @@ func (e *parserNode) Parse(c *PConfig) int {
 		Comment:  comment,
 		Option:   option,
 	}
-	entry.line = c.i
+	entry.pos[0] = c.i
 	c.addEntry(&entry)
 
 	return 1

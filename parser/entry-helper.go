@@ -41,7 +41,7 @@ func (e *parserHelper[T]) Parse(c *PConfig) int {
 }
 
 type entryHelper struct {
-	line  int
+	pos   [2]int
 	value string
 }
 
