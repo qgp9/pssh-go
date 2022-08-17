@@ -4,10 +4,10 @@ type parserEmpty struct {
 	parserHelper[*entryEmpty]
 }
 
-func (p parserEmpty) getSelectorString() string {
-	return `^\s*$`
-}
-
 type entryEmpty struct {
 	entryHelper
+}
+
+func NewParserEmpty() *parserEmpty {
+	return NewParserWithSelector[*parserEmpty](`^\s*$`)
 }

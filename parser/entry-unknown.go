@@ -5,7 +5,7 @@ type parserUnknown struct {
 }
 
 func NewParserUnknown() *parserUnknown {
-	return NewParserWithSelector2(new(parserUnknown), `.`)
+	return NewParserWithSelector[*parserUnknown](`.`)
 }
 
 type entryUnknown struct {

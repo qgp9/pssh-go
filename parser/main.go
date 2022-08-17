@@ -29,7 +29,7 @@ func ParsePConfigStringSlice(lines []string) *PConfig {
 	p := NewPConfig()
 	p.lines = lines
 	parsers := []parseable{
-		NewParser[*parserEmpty](),
+		NewParserOption(),
 		NewParserOption(),   // begins with -
 		NewParserNode(),     // begins with |
 		NewParserComment(),  // begins with #

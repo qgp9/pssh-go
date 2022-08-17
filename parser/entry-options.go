@@ -34,7 +34,7 @@ func (e *parserOption) Parse(c *PConfig) int {
 }
 
 func NewParserOption() *parserOption {
-	return NewParser[*parserOption]()
+	return NewParserWithSelector[*parserOption](`^([\s\|]*)-\s*(.*)`)
 }
 
 type entryOption struct {
