@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"log"
 	"regexp"
 	"strings"
 )
@@ -30,7 +29,6 @@ func (e *parserVariable) Parse(c *PConfig) int {
 	lineStart := c.i
 	res := rBlock.FindStringSubmatch(line)
 	if len(res) > 0 {
-		log.Println("DEBUG===: ", line)
 		var values []string
 		entry.name = res[1]
 		entry.comment = res[2]
