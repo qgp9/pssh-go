@@ -3,6 +3,7 @@ package utils
 import (
 	"log"
 	"os"
+	"reflect"
 	"strings"
 	"unicode"
 )
@@ -61,4 +62,8 @@ func AddToMap[V any](m map[string]V, key string, value V, log func()) bool {
 	}
 	m[key] = value
 	return true
+}
+
+func NewElem[T any]() T {
+	return reflect.New(reflect.TypeOf(new(T)).Elem().Elem()).Interface().(T)
 }

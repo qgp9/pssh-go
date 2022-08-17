@@ -2,8 +2,9 @@ package parser
 
 import (
 	"log"
-	"reflect"
 	"regexp"
+
+	"github.com/qgp9/pssh-go/utils"
 )
 
 // Helper to implement interface parceable
@@ -34,7 +35,7 @@ func (e *parserHelper[T]) Selector(line string) bool {
 }
 
 func (e *parserHelper[T]) Parse(c *PConfig) int {
-	entry := reflect.New(reflect.TypeOf(new(T)).Elem().Elem()).Interface().(T)
+	entry := utils.NewElem[T]()
 	entry.SetValue(c.currentLine())
 	c.addEntry(entry)
 	return 1
@@ -54,7 +55,7 @@ func (e *entryHelper) SetValue(str string) {
 }
 
 func NewParserWithSelector[P parseableHelper](selector string) P {
-	p := reflect.New(reflect.TypeOf(new(P)).Elem().Elem()).Interface().(P)
+	p := utils.NewElem[P]()
 	p.setRegexp(selector)
 	return p
 }
@@ -65,7 +66,7 @@ func NewParserWithSelector2[P parseableHelper](p P, selector string) P {
 }
 
 func NewParser[P parseableHelper]() P {
-	p := reflect.New(reflect.TypeOf(new(P)).Elem().Elem()).Interface().(P)
+	p := utils.NewElem[P]()
 	s := p.getSelectorString()
 	if s != "" {
 		p.setRegexp(s)
