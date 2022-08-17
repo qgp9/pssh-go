@@ -17,12 +17,12 @@ type PConfig struct {
 	groups    map[string]*entryGroup
 }
 
-func (p *PConfig) WriteSshConfig() {
+func (p *PConfig) WriteSshConfig(output string) {
 	var sshConfigList []string
 	for _, v := range p.EntryList {
 		sshConfigList = append(sshConfigList, v.GetSshConfig(p))
 	}
-	err := utils.WriteStringToFile("output.txt", strings.Join(sshConfigList, ""))
+	err := utils.WriteStringToFile(output, strings.Join(sshConfigList, ""))
 	if err != nil {
 		log.Fatal(err)
 	}
